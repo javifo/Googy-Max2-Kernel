@@ -4,15 +4,19 @@
 # What library to link
 ldflags()
 {
+	libret="-lncurses"
+
 	for ext in so a dylib ; do
 		for lib in ncursesw ncurses curses ; do
 			$cc -print-file-name=lib${lib}.${ext} | grep -q /
 			if [ $? -eq 0 ]; then
-				echo "-l${lib}"
+				libret="-l${lib}"
 				exit
 			fi
 		done
 	done
+
+	echo "${libret}"
 	exit 1
 }
 
