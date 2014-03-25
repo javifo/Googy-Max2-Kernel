@@ -1,6 +1,6 @@
 #!/bin/sh
 export KERNELDIR=`greadlink -f .`
-export RAMFS_SOURCE=`greadlink -f $KERNELDIR/../gmramfs2/ramdisk`
+export RAMFS_SOURCE=`greadlink -f $KERNELDIR/ramfs-sgs3`
 export PARENT_DIR=`greadlink -f ..`
 export USE_SEC_FIPS_MODE=true
 export CROSS_COMPILE=/Volumes/Cyanogenmod/android/system/prebuilts/gcc/darwin-x86/arm/arm-eabi-4.7/bin/arm-eabi-
@@ -46,7 +46,7 @@ rm -rf $RAMFS_TMP/tmp/*
 #remove mercurial repository
 rm -rf $RAMFS_TMP/.hg
 #copy modules into ramfs
-mkdir -p $INITRAMFS/lib/modules
+mkdir -p $RAMFS_TMP/lib/modules
 # mv -f drivers/home/googy/video/samsung/mali_r3p0_lsi/mali.ko drivers/home/googy/video/samsung/mali_r3p0_lsi/mali_r3p0_lsi.ko
 # mv -f drivers/net/wireless/bcmdhd.cm/dhd.ko drivers/net/wireless/bcmdhd.cm/dhd_cm.ko
 find . -name '*.ko' -exec cp -av {} $RAMFS_TMP/lib/modules/ \;
