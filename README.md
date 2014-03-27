@@ -13,4 +13,7 @@ Extract ramdisk from existing GoogyMax2 kernel zip file
 -------------------------------------------------------
 
 /Volumes/Cyanogenmod/android/system/out/host/darwin-x86/bin/unpackbootimg -i ~/Downloads/Googy-Max2-Kernel_2.1.4_CWM/boot.img -o /Volumes/Cyanogenmod/gmramfs2
+cd /Volumes/Cyanogenmod/gmramfs2
+cd ramdisk
+gunzip -c ../boot.img-ramdisk.gz | cpio -i
 

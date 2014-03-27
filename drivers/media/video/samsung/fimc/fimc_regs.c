@@ -683,6 +683,7 @@ int fimc_hwset_jpeg_mode(struct fimc_control *ctrl, bool enable)
 	u32 cfg;
 	cfg = readl(ctrl->regs + S3C_CIGCTRL);
 
+	fimc_dbg("%s", __func__);
 	if (enable)
 		cfg |= S3C_CIGCTRL_CAM_JPEG;
 	else

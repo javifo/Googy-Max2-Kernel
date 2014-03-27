@@ -68,6 +68,7 @@ void fimc_outdev_set_src_addr(struct fimc_control *ctrl, dma_addr_t *base)
 				__func__, ctrl->id);
 		return;
 	}
+	fimc_dbg("%s base=%p", __func__, base);
 	fimc_hwset_addr_change_disable(ctrl);
 	fimc_hwset_input_address(ctrl, base);
 	fimc_hwset_addr_change_enable(ctrl);
@@ -1797,6 +1798,7 @@ int fimc_g_ctrl_output(void *fh, struct v4l2_control *c)
 		return -EBUSY;
 	}
 
+	fimc_dbg("%s id=%d", __func__, c->id - V4L2_CID_PRIVATE_BASE);
 	switch (c->id) {
 	case V4L2_CID_ROTATION:
 		c->value = ctx->rotate;

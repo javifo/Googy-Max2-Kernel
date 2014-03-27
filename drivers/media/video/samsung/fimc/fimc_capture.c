@@ -2129,7 +2129,7 @@ int fimc_g_ctrl_capture(void *fh, struct v4l2_control *c)
 	struct v4l2_frmsizeenum cam_frmsize;
 	int ret = 0;
 
-	fimc_dbg("%s\n", __func__);
+	fimc_dbg("%s id=%d\n", __func__, c->id - V4L2_CID_PRIVATE_BASE);
 
 	switch (c->id) {
 	case V4L2_CID_ROTATION:
