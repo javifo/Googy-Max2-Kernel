@@ -540,6 +540,8 @@ static inline void fimc_irq_cap(struct fimc_control *ctrl)
 		before_time.tv_usec = curr_time.tv_usec;
 	}
 #endif
+
+	fimc_warn("%s pdata->hw_ver='%x'", __func__, pdata->hw_ver);
 	fimc_hwset_clear_irq(ctrl);
 	if (fimc_hwget_overflow_state(ctrl)) {
 		ctrl->restart = true;
@@ -561,7 +563,7 @@ static inline void fimc_irq_cap(struct fimc_control *ctrl)
 			cap->cnt++;
 		}
 
-		fimc_info2("%s[%d]\n", __func__, pp);
+		fimc_warn("%s[%d] ctrl->restart=%d ctrl->cap->nr_bufs=%d\n", __func__, pp, ctrl->restart, ctrl->cap->nr_bufs);
 		if (pp == 0 || ctrl->restart) {
 			printk(KERN_INFO "%s[%d] SKIPPED\n", __func__, pp);
 			if (ctrl->cap->nr_bufs == 1) {
@@ -589,6 +591,7 @@ static inline void fimc_irq_cap(struct fimc_control *ctrl)
 			return;
 		}
 
+		fimc_warn("%s use_isp=%d fimc_cam_use=%d", __func__, ctrl->cam->use_isp, fimc_cam_use);
 		buf_index = pp - 1;
 		if (ctrl->cam->use_isp && fimc_cam_use) {
 			is_ctrl.id = V4L2_CID_IS_GET_FRAME_NUMBER;
@@ -634,6 +637,7 @@ static inline void fimc_irq_cap(struct fimc_control *ctrl)
 			}
 		}
 
+		fimc_warn("%s cap->pktdata_enable=%d ctrl->cam->id='%s'", __func__, cap->pktdata_enable, (ctrl->cam->id == CAMERA_CSI_C)?"CAMERA_CSI_C":((ctrl->cam->id == CAMERA_CSI_D)?"CAMERA_CSI_D":"unknown") );
 		if (cap->pktdata_enable) {
 			if (ctrl->cam->id == CAMERA_CSI_C)
 				s3c_csis_get_pkt(CSI_CH_0 , cap->bufs[buf_index].vaddr_pktdata);
@@ -652,7 +656,8 @@ static inline void fimc_irq_cap(struct fimc_control *ctrl)
 
 		spin_unlock(&ctrl->inq_lock);
 
-		fimc_info2("%s[%d] : framecnt_seq: %d, available_bufnum: %d\n",
+		fimc_warn("%s ctrl->status=%d\n", __func__, ctrl->status);
+		fimc_warn("%s[%d] : framecnt_seq: %d, available_bufnum: %d\n",
 			__func__, ctrl->id, framecnt_seq, available_bufnum);
 		if (ctrl->status != FIMC_BUFFER_STOP) {
 			if (available_bufnum == 1) {
@@ -669,6 +674,7 @@ static inline void fimc_irq_cap(struct fimc_control *ctrl)
 	} else
 		pp = ((fimc_hwget_frame_count(ctrl) + 2) % 4);
 
+	fimc_warn("%s cap->fmt.field=%d\n", __func__, cap->fmt.field);
 	if (cap->fmt.field == V4L2_FIELD_INTERLACED_TB) {
 		/* odd value of pp means one frame is made with top/bottom */
 		if (pp & 0x1) {
