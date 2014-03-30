@@ -17,3 +17,5 @@ cd /Volumes/Cyanogenmod/gmramfs2
 cd ramdisk
 gunzip -c ../boot.img-ramdisk.gz | cpio -i
 
+Use buildscript
+./build_kernel.sh 2_2_1_fimc_javi

@@ -29,7 +29,7 @@ int fimc_try_fmt_overlay(struct file *filp, void *fh, struct v4l2_format *f)
 	u32 is_rotate = 0;
 	ctx = &ctrl->out->ctx[ctx_id];
 
-	fimc_info1("%s: top(%d) left(%d) width(%d) height(%d)\n", __func__,
+	fimc_dbg("%s: top(%d) left(%d) width(%d) height(%d)\n", __func__,
 			f->fmt.win.w.top, f->fmt.win.w.left,
 			f->fmt.win.w.width, f->fmt.win.w.height);
 
@@ -135,7 +135,7 @@ int fimc_s_fmt_vid_overlay(struct file *filp, void *fh, struct v4l2_format *f)
 	int ret = -1;
 	ctx = &ctrl->out->ctx[ctx_id];
 
-	fimc_info1("%s: called\n", __func__);
+	fimc_dbg("%s: called\n", __func__);
 
 	switch (ctx->status) {
 	case FIMC_STREAMON:
@@ -223,7 +223,7 @@ int fimc_s_fbuf(struct file *filp, void *fh, struct v4l2_framebuffer *fb)
 	u32 format = fb->fmt.pixelformat;
 	ctx = &ctrl->out->ctx[ctx_id];
 
-	fimc_info1("%s: called. width(%d), height(%d)\n",
+	fimc_dbg("%s: called. width(%d), height(%d)\n",
 			__func__, fb->fmt.width, fb->fmt.height);
 
 	ctx->fbuf.capability = V4L2_FBUF_CAP_EXTERNOVERLAY;

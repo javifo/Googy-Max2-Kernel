@@ -1464,7 +1464,7 @@ static long __video_do_ioctl(struct file *file,
 		} else
 			break;
 		if (!ret)
-			dbgarg(cmd, "id=0x%x, value=%d\n", p->id, p->value);
+			dbgarg(cmd, "id=0x%x, value=%d(0x%x)\n", p->id, p->value, p->value);
 		else
 			dbgarg(cmd, "id=0x%x\n", p->id);
 		break;
@@ -1482,7 +1482,7 @@ static long __video_do_ioctl(struct file *file,
 		} else
 			break;
 		if (!ret)
-			dbgarg(cmd, "id=0x%x, value=%d\n", p->id, p->value);
+			dbgarg(cmd, "id=0x%x, value=%d(0x%x)\n", p->id, p->value, p->value);
 		else
 			dbgarg(cmd, "id=0x%x\n", p->id);
 		break;
